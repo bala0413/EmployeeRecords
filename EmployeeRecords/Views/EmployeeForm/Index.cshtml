@@ -1,0 +1,80 @@
+﻿<h2>Employees Details</h2>
+
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/EmpForm.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="~/MyScripts/jquery.js"></script>
+<script src="~/MyScripts/jquery.dataTables.js"></script>
+<script src="~/MyScripts/angular-datatables.js"></script>
+<script src="~/MyScripts/dirPagination.js"></script>
+
+<div class="form-group">
+    <div class="col-md-offset-9">
+        <a href="~/EmployeeForm/AddEmployee">
+            <input type="button" class="form-control btn-default" value="Add Employee" />
+        </a>
+    </div>
+</div>
+
+<div ng-app="Employee">
+    <div ng-controller="EmployeeController" ng-init="GetAllData()" class="divList">
+        <div class="col-md-3">
+            <input type="text" ng-model="search" class="form-control" placeholder="search" />
+        </div><br />
+        <table cellpadding="12" class="table table-bordered table-hover">
+            <tr>
+                <td>
+                    <b>Name</b>
+                </td>
+                <td>
+                    <b>DOB</b>
+                </td>
+                <td>
+                    <b>DOJ</b>
+                </td>
+                <td>
+                    <b>ProfilePicture</b>
+                </td>
+                <td>
+                    <b>Position</b>
+                </td>
+                <td>
+                    <b>Edit/Delete</b>
+                </td>
+            </tr>
+            <tr dir-paginate="e in employees|itemsPerPage:5| filter:search">
+                <td>
+                    {{e.Firstname}}.&nbsp;{{e.Middlename}}{{e.Lastname}}
+                </td>
+                <td>
+                    {{e.DOB | date : 'MM/dd/yyyy'}}
+                </td>
+                <td>
+                    {{e.DOJ  | date : 'MM/dd/yyyy'}}
+                </td>
+                <td>
+                    {{e.ProfilePicture}}
+                </td>
+                <td>
+                    {{e.Position}}
+                </td>
+                <td>
+                    <a href="~/EmployeeForm/AddEmployee">
+                        <button type="button" class="fa fa-pencil-square-o" ng-click="UpdateData(e)"></button>
+                    </a>
+                    <button type="button" class="fa fa-trash" ng-click="DeleteData(e)"></button>
+                </td>
+            </tr>
+
+        </table>
+        <div class="col-md-offset-9">
+            <dir-pagination-controls max-size="5"
+                                     direction-links="true"
+                                     boundary-links="true">
+            </dir-pagination-controls>
+        </div>
+
+    </div>
+    @Html.Hidden("EmpId_")
+</div>

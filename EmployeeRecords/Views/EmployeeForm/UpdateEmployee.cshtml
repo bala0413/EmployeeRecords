@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Update Employee";
+}
+
+<script src="~/Scripts/EmpForm.js"></script>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+<h2>Update Employee</h2>
+
+<div ng-app="Employee">
+    <div ng-controller="EmployeeController">
+        <div class="form-horizontal" role="form">
+            <div class="container">
+
+                <input type="hidden" class="form-control" ng-model="id" />
+
+
+                <div class="form-group">
+                    <h2><span id="idspan">Update Employee</span></h2>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1">Firstname:</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" ng-model="Fname">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1">Middlename:</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" ng-model="Mname">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1">Lastname:</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" ng-model="Lname">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1">DOB:</label>
+                    <div class="col-md-6">
+                        <input type="date" class="form-control" ng-model="Dobirth">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1">DOJ:</label>
+                    <div class="col-md-6">
+                        <input type="date" class="form-control" ng-model="DoJoin">
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                        <label class="col-sm-1">Position:</label>
+                        <div class="col-md-6">
+                            <input type="file" class="form-control" ng-model="EPosition">
+                        </div>
+                    </div>
+
+
+
+                            <div class="form-group">
+                                <input type="file" fileread="uploadme" ng-model="uploadme" />
+                                <img src="{{uploadme}}" width="100" height="50" alt="Image preview...">
+                                <br />
+                                <p>
+                                    Image dataURL:
+                                    <pre>{{uploadme}}</pre>
+                                </p>
+
+                            </div>*@
+
+                <div class="form-group">
+                    <input type="button" id="btnSave" class="btn btn-warning" value="Update" ng-click="UpdateDetails()" />
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Hidden("EmpId_")
+</div>

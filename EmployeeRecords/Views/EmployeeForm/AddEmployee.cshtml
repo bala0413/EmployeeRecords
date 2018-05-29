@@ -1,0 +1,325 @@
+﻿
+@{
+    ViewBag.Title = "Insert Employee";
+}
+<link href="~/MyScripts/ng-tags-input.min.css" rel="stylesheet" />
+<link href="~/MyScripts/Select.css" rel="stylesheet" />
+<script src="~/Scripts/EmpForm.js"></script>
+<script src="~/MyScripts/Services.js"></script>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/MyScripts/ng-tags-input.min.js"></script>
+<script src="~/MyScripts/select.js"></script>
+<script src="~/MyScripts/angular-file-upload.min.js"></script>
+<script src="~/MyScripts/bootstrap-filestyle.js"></script>
+<style>
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+</style>
+<div ng-app="Employee">
+    <div ng-controller="EmployeeController">
+        <div class="form-horizontal" role="form">
+            <div class="container">
+                <div class="form-group">
+                    <h2><span id="idspan">Add New Employee</span></h2>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1">Firstname:</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" ng-model="Fname">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1">Middlename:</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" ng-model="Mname">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1">Lastname:</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" ng-model="Lname">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1">DOB:</label>
+                    <div class="col-md-6">
+                        <input type="date" class="form-control" ng-model="Dobirth">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1">DOJ:</label>
+                    <div class="col-md-6">
+                        <input type="date" class="form-control" ng-model="DoJoin">
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                        <label class="col-sm-1">multi:2</label>
+                        <select multiple="multiple" ng-model="Color">
+                            <option value="" selected>Select</option>
+                            <option ng-repeat="c in PositionTables" value="{{c.id}}">
+                                {{c.position}}
+                            </option>
+                        </select>
+                        {{Color}}
+                    </div>*@
+
+                <div class="form-group">
+                    <label class="col-sm-1">Position:</label>
+                    <div class="col-md-6">
+                        <ui-select multiple ng-model="multiple.Pos" theme="bootstrap" ng-disabled="disabled" close-on-select="false" style="width: 300px;" title="Choose a Position">
+                            <ui-select-match placeholder="Select Position">{{$item}}</ui-select-match>
+                            <ui-select-choices repeat="Post in PositionTabless | filter:$select.search">
+                                {{Post}}
+                            </ui-select-choices>{{multiple.Pos}}
+                        </ui-select>
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                        <input type="file" fileread="uploadme" ng-model="uploadme" />
+                        <img src="{{uploadme}}" width="100" height="50" alt="Image preview...">
+                        <br />
+                        <p>
+                            Image dataURL:
+                            <pre>{{uploadme}}</pre>
+                        </p>
+                    </div>*@
+
+                @*<div ng-controller="EmployeePicController">
+                        <div class="form-group">
+                            <label class="col-sm-1">Profile Picture: </label>
+                            <div class="col-md-6">
+                                <input type="file" ng-model="Pp" name="file" value="Upload File" accept="image/*" onchange="angular.element(this).scope().selectFileforUpload(this.files)" required />
+                                <span class="error" ng-show="(f1.file.$dirty || IsFormSubmitted) && f1.file.$error.required">Image required SEA !</span>
+                                <span class="error">{{FileInvalidMessage}}</span>
+
+                                <input type="submit" value="Save Item" ng-click="SaveFile()" style="background-color:#336699;color:#FFFFFF" required />
+                            </div>
+                        </div>
+                    </div>*@
+
+
+                @*<div class="form-group">
+                        <label>Select files to upload</label>
+                    </div>
+                    <div class="form-group">
+                        <span class="btn btn-primary btn-file">
+                            Browse.. <input type="file" upload-files="vm.files" has-files="vm.hasFiles" />
+                        </span>
+                    </div>
+
+                    <div class="form-group" ng-show="vm.hasFiles">
+                        <ul class="list-unstyled">
+                            <li>
+                                <strong>Files:</strong>
+                            </li>
+                            <li ng-repeat="file in vm.files" ng-bind="file.name" />
+                        </ul>
+                        <input class="btn btn-primary" type="button" ng-click="vm.uploadFiles()" value="Upload">
+                        <input class="btn btn-warning" type="reset" value="Cancel">
+                    </div>*@
+
+                @*<div class="col-md-3">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <h4 class="page-header mt0">Select files</h4>
+                                <div ng-show="uploader.isHTML5">
+                                    <!-- 3. nv-file-over uploader="link" over-class="className"-->
+                                    <div nv-file-over="" uploader="uploader" over-class="bg-info" class="box-placeholder my-drop-zone">Base drop zone</div>
+                                    <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}"-->
+                                    <div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
+                                        <div nv-file-over="" uploader="uploader" over-class="bg-purple" class="box-placeholder my-drop-zone">Another drop zone with its own settings</div>
+                                    </div>
+                                </div>
+                                <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}"-->
+                                <hr />
+                                <input filestyle="" type="file" data-icon-name="icon-upload" data-button-text="Multiple" data-class-button="btn btn-default" data-class-input="form-control inline" nv-file-select="" uploader="uploader" multiple="" class="form-control" />
+                                <br />
+                                <input filestyle="" type="file" data-icon-name="icon-upload" data-button-text="Single" data-class-button="btn btn-default" data-classinput="form-control inline" nv-file-select="" uploader="uploader" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 40px" class="col-md-9">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <p ng-if="uploader.queue.length" class="pull-right label label-info">Queue length: {{ uploader.queue.length }}</p>
+                                <h4 class="page-header mt0">Upload queue</h4>
+                                <p ng-if="!uploader.queue.length" class="lead text-center">No files in queue. Start adding some..</p>
+                                <div ng-if="uploader.queue.length">
+                                    <table ng-if="uploader.queue.length" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th width="50%">Name</th>
+                                                <th ng-show="uploader.isHTML5">Size</th>
+                                                <th ng-show="uploader.isHTML5">Progress</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in uploader.queue">
+                                                <td>
+                                                    <strong>{{ item.file.name }}</strong>
+                                                </td>
+                                                <td ng-show="uploader.isHTML5" nowrap="">{{ item.file.size/1024/1024|number:2 }} MB</td>
+                                                <td ng-show="uploader.isHTML5">
+                                                    <div style="margin-bottom: 0;" class="progress progress-xs">
+                                                        <div role="progressbar" ng-style="{ 'width': item.progress + '%' }" class="progress-bar"></div>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span ng-show="item.isSuccess">
+                                                        <em class="fa fa-check fa-fw"></em>
+                                                    </span>
+                                                    <span ng-show="item.isCancel">
+                                                        <em class="fa fa-ban-circle fa-fw"></em>
+                                                    </span>
+                                                    <span ng-show="item.isError">
+                                                        <em class="fa fa-times fa-fw"></em>
+                                                    </span>
+                                                </td>
+                                                <td nowrap="">
+                                                    <button type="button" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess" class="btn btn-info btn-xs">
+                                                        <span class="icon-cloud-upload mr"></span>Upload
+                                                    </button>
+                                                    <button type="button" ng-click="item.cancel()" ng-disabled="!item.isUploading" class="btn btn-warning btn-xs">
+                                                        <span class="icon-cross mr"></span>Cancel
+                                                    </button>
+                                                    <button type="button" ng-click="item.remove()" class="btn btn-danger btn-xs">
+                                                        <span class="icon-trash mr"></span>Remove
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div>
+                                    <p>Queue progress:</p>
+                                    <div style="" class="progress progress-xs">
+                                        <div role="progressbar" ng-style="{ 'width': uploader.progress + '%' }" class="progress-bar"></div>
+                                    </div>
+                                </div>
+                                <button type="button" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length" class="btn btn-info btn-s">
+                                    <span class="icon-cloud-upload mr"></span>Upload all
+                                </button>
+                                <button type="button" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading" class="btn btn-warning btn-s">
+                                    <span class="icon-cross mr"></span>Cancel all
+                                </button>
+                                <button type="button" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length" class="btn btn-danger btn-s">
+                                    <span class="icon-trash mr"></span>Remove all
+                                </button>
+                            </div>
+                        </div>
+                    </div>*@
+
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <input type="button" id="btnSave" class="form-control btn-default" value="Submit" ng-click="InsertData()" />
+                    </div>
+                    <div class="col-md-2">
+                        <a href="~/EmployeeForm/index">
+                            <input type="button" class="form-control btn-default" value="Employee List" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="form-horizontal" role="form">
+            <div class="container">
+
+                <input type="hidden" class="form-control" ng-model="id" />
+
+
+                <div class="form-group">
+                    <h2><span id="idspan">Update Employee</span></h2>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1">Firstname:</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" ng-model="Fname">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1">Middlename:</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" ng-model="Mname">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1">Lastname:</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" ng-model="Lname">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1">DOB:</label>
+                    <div class="col-md-6">
+                        <input type="date" class="form-control" ng-model="Dobirth">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1">DOJ:</label>
+                    <div class="col-md-6">
+                        <input type="date" class="form-control" ng-model="DoJoin">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="button" id="btnSave" class="btn btn-warning" value="Update" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-controller="EmployeePicController">
+        <div class="form-horizontal" role="form">
+            <div class="container">
+                <div class="form-group">
+                    <label class="col-sm-1">Profile Picture: </label>
+                    <div class="col-md-6">
+                        <input type="file" name="file" value="Upload File" accept="image/*" onchange="angular.element(this).scope().selectFileforUpload(this.files)" required />
+                        <span class="error" ng-show="(f1.file.$dirty || IsFormSubmitted) && f1.file.$error.required">Image required SEA !</span>
+                        <span class="error">{{FileInvalidMessage}}</span>
+
+                        <input type="submit" value="Save Item" ng-click="SaveFile()" style="background-color:#336699;color:#FFFFFF" required />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
